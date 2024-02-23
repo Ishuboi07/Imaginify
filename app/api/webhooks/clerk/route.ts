@@ -11,6 +11,8 @@ export async function POST(req: Request) {
   // You can find this in the Clerk Dashboard -> Webhooks -> choose the webhook
   const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET;
 
+  console.log("here I am")
+
   if (!WEBHOOK_SECRET) {
     throw new Error(
       "Please add WEBHOOK_SECRET from Clerk Dashboard to .env or .env.local"
@@ -39,6 +41,8 @@ export async function POST(req: Request) {
 
   let evt: WebhookEvent;
 
+  console.log("bhai dekh rha verify loader se pehle")
+
   // Verify the payload with the headers
   try {
     evt = wh.verify(body, {
@@ -53,14 +57,20 @@ export async function POST(req: Request) {
     });
   }
 
+  console.log("bhai dekh rha verify loader ke baad")
+
   // Get the ID and type
   const { id } = evt.data;
   const eventType = evt.type;
+
+  console.log("bhai dekh rha verify loader ke baad", evt.data, evt.type)
 
   // CREATE
   if (eventType === "user.created") {
     const { id, email_addresses, image_url, first_name, last_name, username } =
       evt.data;
+
+    console.log("andar aya of user created", evt.data)
 
     const user = {
       clerkId: id,
