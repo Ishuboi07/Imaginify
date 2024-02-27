@@ -41,7 +41,7 @@ export default function MobileNav() {
                   height={23}
                 />
                 <ul className="header-nav_elements">
-                  {navLinks.slice(0, 6).map((navLink) => {
+                  {navLinks.map((navLink) => {
                     const isActive = navLink.route === pathname;
 
                     return (
